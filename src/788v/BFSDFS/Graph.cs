@@ -1,4 +1,5 @@
 using Newtonsoft.Json;
+using System;
 
 namespace BFSDFS {
     
@@ -31,6 +32,68 @@ namespace BFSDFS {
                 }
             }
             return graph;
+        }
+
+        public static List<string> DFS(string start_id, string end_id, Dictionary<string, Node> graph) {
+            
+            Stack<Node> node_queue = new Stack<Node>();
+            List<string> path = new List<string>();
+
+            // add the start node to the queue
+            node_queue.Push(graph[start_id]);
+
+            while (node_queue.Count > 0) {
+                // get the next node in the queue
+                Node node = node_queue.Pop();
+                path.Add(node.id);
+                node.explored = true;
+
+                if (node.id == end_id) {
+                    // if the end node has been found, return the path
+                    return path;
+                }
+
+                foreach (Node n in node.neighbors) {
+                    if (!n.explored && !node_queue.Contains(n)) {
+                        n.parent = node;
+                        node_queue.Push(n);
+                    }
+                }
+            }
+
+            // if the queue is empty and the end node has not been found, return null
+            return path;
+        }
+
+        public static List<string> BFS(string start_id, string end_id, Dictionary<string, Node> graph) {
+            
+            Queue<Node> node_queue = new Queue<Node>();
+            List<string> path = new List<string>();
+
+            // add the start node to the queue
+            node_queue.Enqueue(graph[start_id]);
+
+            while (node_queue.Count > 0) {
+                // get the next node in the queue
+                Node node = node_queue.Dequeue();
+                path.Add(node.id);
+                node.explored = true;
+
+                if (node.id == end_id) {
+                    // if the end node has been found, return the path
+                    return path;
+                }
+
+                foreach (Node n in node.neighbors) {
+                    if (!n.explored && !node_queue.Contains(n)) {
+                        n.parent = node;
+                        node_queue.Enqueue(n);
+                    }
+                }
+            }
+
+            // if the queue is empty and the end node has not been found, return null
+            return path;
         }
     }
 }

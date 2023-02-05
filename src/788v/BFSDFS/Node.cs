@@ -6,6 +6,7 @@ namespace BFSDFS {
         public string id { get; set;}
         public bool explored { get; set; }
         public List<Node> neighbors { get; set; }
+        public Node parent { get; set; }
         
         
         public Node(string i) {
