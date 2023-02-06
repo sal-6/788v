@@ -1,9 +1,10 @@
 ﻿using BFSDFS;
+using Hw1;
 
 namespace Base {
     public class Program {
         public static void Main(string[] args) {
-            BFSDFS.App.Run();       
+            Hw1.App.Run();       
         }
     }
 }
