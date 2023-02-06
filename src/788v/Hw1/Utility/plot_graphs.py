@@ -38,7 +38,7 @@ def plot_search_path(nodes, edges, path):
         node_2 = nodes[int(path[i+1])]
         x = [node_1[0], node_2[0]]
         y = [node_1[1], node_2[1]]
-        plt.plot(x, y, color='green', linewidth=3)
+        plt.plot(x, y, color='green', linewidth=5)
         
 
 def plot_search_tree(nodes, edges, tree):
@@ -47,11 +47,11 @@ def plot_search_tree(nodes, edges, tree):
         node_2 = nodes[int(exp[1])]
         x = [node_1[0], node_2[0]]
         y = [node_1[1], node_2[1]]
-        plt.plot(x, y, color='grey', linewidth=9, alpha=0.5)
+        plt.plot(x, y, color='pink', linewidth=3)
         
 
 def main():
-    problem = 2
+    problem = 5
     
     node_file_path = os.path.join(DATA_FOLDER_PATH, f"nodes_{problem}.txt")
     edges_file_path = os.path.join(DATA_FOLDER_PATH, f"edges_with_costs_{problem}.txt")
@@ -76,7 +76,7 @@ def main():
         y = nodes[node][1]
         plt.scatter(x, y, color='blue')
         # add a label to the node with its id
-        plt.annotate(node, (x+1, y+1))
+        #plt.annotate(node, (x+1, y+1))
 
     # plot the search tree
     with open(tree_file_path, 'r') as f:

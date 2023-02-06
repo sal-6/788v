@@ -4,7 +4,7 @@ namespace Hw1 {
         public static void Run() {
             Console.Write("Running Hw1 ... \n");
             
-            const string problem = "2";
+            const string problem = "5";
 
             // create a string with a format
             string node_path = ".\\data\\Hw1\\nodes_" + problem + ".txt";
@@ -17,7 +17,7 @@ namespace Hw1 {
                 e.from.add_edge(e);
             }
 
-            Search s = Graph.BFS("1", "6", nodes);
+            Search s = Graph.A_star("1", "160", nodes);
             s.dump_path(@".\src\788v\Hw1\output\path_" + problem + ".json");
             s.dump_tree(@".\src\788v\Hw1\output\tree_" + problem + ".json");
 

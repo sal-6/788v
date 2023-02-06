@@ -15,6 +15,7 @@ namespace Hw1 {
         public void build_path(Node end_node) {
             Node node = end_node;
             while (node.parent != null) {
+                //Console.WriteLine(node.id);
                 this.path.Add(node.id);
                 node = node.parent;
             }

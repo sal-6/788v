@@ -3,8 +3,45 @@
 namespace Hw1 {
     class Graph {
         
-        public static void A_star(string start_id, string end_id, List<Node> nodes) {
+        public static Search A_star(string start_id, string end_id, List<Node> nodes) {
             Node start = nodes.Find(n => n.id == start_id);
+            Node end = nodes.Find(n => n.id == end_id);
+            
+            PriorityQueue<Node, float> queue = new PriorityQueue<Node, float>();
+            Search search = new Search();
+            
+            start.cost_to_reach = 0;
+            queue.Enqueue(start, 0);
+            
+            while (queue.Count > 0) {
+                Node current = queue.Dequeue();
+                
+                if (current.parent != null) {
+                    search.tree.Add(new List<string> {current.parent.id, current.id});
+                }
+                
+                if (current.id == end_id) {
+                    Console.Write("Found path!\n");
+                    search.found_path = true;
+                    search.build_path(current);
+                    return search;
+                }
+                
+                foreach (KeyValuePair<string, float> neighbor in current.neighbors) {
+                    Node n = nodes.Find(node => node.id == neighbor.Key);
+                    float cost = current.cost_to_reach + neighbor.Value;
+                    Console.WriteLine("cost: " + cost);
+                    if ((cost < n.cost_to_reach || !n.explored) && n.id != start_id) {
+                        n.cost_to_reach = cost;
+                        n.explored = true;
+                        n.parent = current;
+                        float how_good = cost + (float) Math.Sqrt(Math.Pow(n.x - end.x, 2) + Math.Pow(n.y - end.y, 2));
+                        queue.Enqueue(n, cost + how_good);
+                    }
+                }
+            }
+            
+            return search;
 
         }
 
